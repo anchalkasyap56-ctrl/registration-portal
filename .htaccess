@@ -1,0 +1,40 @@
+# Enable PHP
+AddType application/x-httpd-php .php
+
+# Prevent directory listing
+Options -Indexes
+
+# Rewrite engine
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+    
+    # Remove .php from URLs (optional)
+    # RewriteCond %{REQUEST_FILENAME} !-f
+    # RewriteCond %{REQUEST_FILENAME} !-d
+    # RewriteRule ^([^.]+)$ $1.php [L]
+end</IfModule>
+
+# Set proper MIME types
+<IfModule mod_mime.c>
+    AddType text/html .html .htm
+    AddType text/css .css
+    AddType application/javascript .js .json
+    AddType image/svg+xml .svg
+end</IfModule>
+
+# Enable GZIP compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/css text/javascript application/javascript text/xml
+end</IfModule>
+
+# Set expires headers (caching)
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/html A3600
+    ExpiresByType text/css A31536000
+    ExpiresByType application/javascript A31536000
+    ExpiresByType image/jpeg A31536000
+    ExpiresByType image/png A31536000
+    ExpiresByType image/svg+xml A31536000
+end</IfModule>
